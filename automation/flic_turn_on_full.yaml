@@ -1,0 +1,19 @@
+alias: Turn on all lamps in bedroom
+trigger:
+  platform: event
+  event_type: flic_click
+  event_data:
+    button_name: flic_80e4da733b73
+    click_type: double
+action:
+  - data:
+      color_name: magenta
+      brightness: 200
+    service: light.turn_on
+    entity_id:
+      - light.bedroom_ceiling
+  - service: switch.turn_on
+    entity_id:
+      - switch.banklampa_sovrum
+      - switch.fonsterlampa_sovrum
+      - switch.golvlampa_sovrum

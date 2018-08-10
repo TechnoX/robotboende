@@ -1,0 +1,17 @@
+alias: 'Turn on Entrance light when movement in day'
+trigger: 
+  platform: state
+  entity_id: sensor.motion_hallsensor
+  from: 'off'
+  to: 'on'
+condition:
+  condition: time
+  after: '08:00:00'
+  before: '22:00:00' 
+action:
+  service: light.turn_on
+  entity_id:
+    - group.entrance
+  data:
+    brightness: 150
+

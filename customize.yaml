@@ -1,0 +1,86 @@
+
+# Balkongen
+switch.balkong:
+  friendly_name: Balcony
+  icon: mdi:gate
+
+# Köket
+sensor.kyl_temperature:
+  friendly_name: Temperature refrigerator
+light.kitchen_table_ceiling:
+  icon: mdi:ceiling-light
+light.sink:
+  icon: mdi:water-pump
+
+
+# Badrummet
+light.bathroom_ceiling:
+  icon: mdi:ceiling-light
+binary_sensor.badrumsdorr:
+  friendly_name: Bathroom door sensor
+  device_class: door
+  icon: mdi:door
+sensor.badrum_motion_sensor:
+  friendly_name: Bathroom motion sensor
+  device_class: motion
+
+# Sovrummet
+switch.banklampa_sovrum:
+  friendly_name: Bedroom table
+  icon: mdi:lamp
+switch.fonsterlampa_sovrum:
+  friendly_name: Bedroom window
+  icon: mdi:lamp
+switch.golvlampa_sovrum:
+  friendly_name: Bedroom floor
+  icon: mdi:lightbulb
+light.bedroom_ceiling:
+  icon: mdi:ceiling-light
+binary_sensor.flic_80e4da733b73:
+  friendly_name: Flic
+sensor.fjarris:
+  friendly_name: Fjärris
+
+
+# Vardagsrummet
+light.living_room_window_left:
+  hidden: true
+  icon: mdi:spotlight-beam
+light.living_room_window_right:
+  hidden: True
+  icon: mdi:spotlight-beam
+switch.vardagsrumsfonster:
+  friendly_name: Living room window lamps
+  icon: mdi:lamp
+sensor.vardagsrumsfonster_power:
+  friendly_name: Living room power sensor
+  icon: mdi:battery-charging
+  hidden: true
+sensor.vardagsrumsfonster_power_2:
+  friendly_name: Living room power sensor 2
+  icon: mdi:battery-charging
+light.living_room_sofa_table:
+  icon: mdi:ceiling-light
+light.living_room_ceiling:
+  icon: mdi:ceiling-light
+group.window_spots:
+  icon: mdi:spotlight-beam
+
+# Hallen
+light.entrance_ceiling:
+  icon: mdi:ceiling-light
+light.lantern:
+  icon: mdi:briefcase-outline
+light.entrance_table:
+  icon: mdi:lightbulb
+sensor.motion_hallsensor:
+  friendly_name: Entrance motion sensor
+  device_class: motion
+
+# Fredriks rum
+light.fredrik_bedroom_ceiling:
+  icon: mdi:ceiling-light
+
+binary_sensor.floorplan:
+  custom_ui_state_card: state-card-floorplan
+  config: !include floorplan.yaml

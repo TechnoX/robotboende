@@ -1,0 +1,11 @@
+alias: Turn on bathroom light when there is movement
+trigger:
+  platform: state
+  entity_id: sensor.badrum_motion_sensor
+  to: 'on'
+action:
+  service: light.turn_on
+  entity_id: group.bathroom
+  data:
+    brightness: 100
+

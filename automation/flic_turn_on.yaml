@@ -1,0 +1,17 @@
+alias: Turn on ceiling lamp in bedroom
+trigger:
+  platform: event
+  event_type: flic_click
+  event_data:
+    button_name: flic_80e4da733b73 
+    click_type: single
+condition:
+  - condition: state
+    entity_id: light.bedroom_ceiling
+    state: 'off'
+action:
+  - data:
+      color_name: red
+      brightness: 30
+    service: light.turn_on
+    entity_id: light.bedroom_ceiling

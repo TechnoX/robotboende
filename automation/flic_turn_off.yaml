@@ -1,0 +1,19 @@
+alias: Turn off all lights in bedroom if at least on lamp is on, when pressing button
+trigger:
+  platform: event
+  event_type: flic_click
+  event_data:
+    button_name: flic_80e4da733b73
+    click_type: single
+condition:
+  - condition: state
+    entity_id: group.bedroom
+    state: 'on'
+action:
+  - service: homeassistant.turn_off
+    entity_id: group.bedroom
+  - service: media_player.alexa_tts
+    data:
+      entity_id: media_player.echo_dot_kitchen
+      message: "Good night, sleep well."
+

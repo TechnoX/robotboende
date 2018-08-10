@@ -1,0 +1,146 @@
+default_view:
+  view: yes
+  icon: mdi:home
+  entities:
+    - zone.home
+    - sensor.weather_symbol
+    - sensor.weather_temperature
+    - device_tracker.oneplus_3t
+    - device_tracker.androidff8d08b56883d236
+    - device_tracker.androidc6b535b32e0e58f6
+    - group.livingroom
+    - group.bedroom
+    - group.kitchen
+    - group.bathroom
+    - group.entrance
+    - group.vacuum_short_status
+    - group.fredrik_room
+
+kitchen:
+  name: Kitchen
+  entities:
+    - switch.balkong
+    - sensor.kyl_temperature
+    - light.sink
+    - light.kitchen_table_ceiling
+    - configurator.alexa_media_player
+    - media_player.echo_dot_kitchen
+
+fredrik_room:
+  name: Fredriks room
+  entities:
+    - light.fredrik_bedroom_ceiling
+
+bathroom:
+  name: Bathroom
+  entities:
+    - light.bathroom_mirror
+    - light.bathroom_ceiling
+    - binary_sensor.badrumsdorr
+    - sensor.badrum_motion_sensor
+
+bedroom:
+  name: Bedroom
+  icon: mdi:hotel
+  entities:
+    - light.bedroom_ceiling
+    - switch.banklampa_sovrum
+    - switch.fonsterlampa_sovrum
+    - switch.golvlampa_sovrum
+    - binary_sensor.flic_80e4da733b73
+    - sensor.fjarris
+    - media_player.master_bedroom_speaker
+
+
+window_spots:
+  name: Window spotlights
+  entities:
+    - light.living_room_window_right
+    - light.living_room_window_left
+
+
+livingroom:
+  name: Living room
+  icon: mdi:food-fork-drink
+  entities:
+    - switch.vardagsrumsfonster
+    - sensor.vardagsrumsfonster_power
+    - sensor.vardagsrumsfonster_power_2
+    - light.living_room_sofa_table
+    - group.window_spots
+    - light.living_room_ceiling
+
+
+entrance:
+  name: Entrance
+  icon: mdi:home-outline
+  entities:
+    - light.entrance_ceiling
+    - light.lantern
+    - light.entrance_table
+    - sensor.motion_hallsensor
+
+vacuum_status_view:
+  view: yes
+  icon: mdi:robot-vacuum
+  entities:
+    - group.vacuum_status
+
+
+
+weather:
+  name: "Weather"
+  view: yes
+  icon: mdi:weather-cloudy
+  entities:
+    - sun.sun
+    - sensor.weather_symbol
+    - sensor.weather_temperature
+    - sensor.weather_cloudiness
+    - sensor.weather_fog
+    - sensor.weather_precipitation
+    - sensor.weather_humidity
+    - sensor.weather_pressure
+    - sensor.weather_wind_direction
+    - sensor.weather_wind_speed
+    - history_graph.temperature_graph
+    - history_graph.weather_graph
+
+system_info_view:
+  name: System info
+  icon: mdi:lan
+  view: yes
+  entities:
+    - group.device_states
+    - group.internet_card
+    - group.system_monitor_card
+    - history_graph.internet_speed_tests
+
+vacuum_short_status:
+  name: Borris - Vacuum status
+  icon: mdi:robot-vacuum
+  entities:
+    - vacuum.borris
+    - sensor.vacuum_status
+    - sensor.vacuum_battery_level
+
+persons:
+  name: "Persons device tracker group"
+  view: no
+  entities:
+    - device_tracker.androidc6b535b32e0e58f6
+
+
+
+map:
+  name: Map
+  entities:
+    - binary_sensor.floorplan
+
+Floorplan:
+  name: Floorplan
+  view: yes
+  entities:
+    - group.map
+    
+    
