@@ -1,6 +1,7 @@
 .cloud/
 .storage/
 deps/
+__pycache__/
 
 .HA_VERSION
 .uuid
