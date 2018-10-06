@@ -1,0 +1,152 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude
+  longitude: !secret longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 54
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Stockholm
+  # Customization file
+  customize: !include customize.yaml
+  packages: !include_dir_named packages
+  
+  
+# Show links to resources in log and frontend
+#introduction:
+
+# Enables the frontend
+frontend:
+  themes: !include_dir_named themes
+  extra_html_url:
+    - /local/custom_ui/state-card-floorplan.html
+
+# Enables configuration UI
+config:
+
+http:
+  # Secrets are defined in the file secrets.yaml
+  # api_password: !secret http_password
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+#conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+panel_custom:
+  - name: floorplan
+    sidebar_title: Floorplan
+    sidebar_icon: mdi:home
+    url_path: floorplan
+    config: !include floorplan.yaml
+
+# Enables a map showing the location of tracked devices
+#map:
+
+# Track the sun
+sun:
+
+# Weather prediction
+sensor:
+  - platform: yr
+    name: Weather
+    forecast: 24
+    monitored_conditions:
+      - temperature
+      - symbol
+      - precipitation
+      - windSpeed
+      - pressure
+      - windDirection
+      - humidity
+      - fog
+      - cloudiness
+  - platform: hue
+    ip_address: 192.168.0.14
+    token: !secret hue_token
+
+# Text to speech
+#tts:
+#  - platform: google
+
+# Cloud
+cloud:
+
+group: !include groups.yaml
+automation: !include_dir_list automation
+script: !include scripts.yaml
+
+
+# Telldus Live!
+tellduslive:
+
+
+binary_sensor:
+  - platform: flic
+  - platform: mqtt
+    state_topic: dummy/floorplan/sensor
+    name: Floorplan
+
+
+
+device_tracker:
+  - platform: nmap_tracker
+    hosts: 192.168.0.1-255
+    exclude: 192.168.0.41
+    home_interval: 10
+    consider_home: 1800
+
+vacuum:
+  - platform: xiaomi_miio
+    host: 192.168.0.26
+    token: !secret vacuum_token
+    name: Borris
+
+notify:
+  - name: pushbullet
+    platform: pushbullet
+    api_key: !secret pb_access_token
+
+media_player:
+  - platform: alexa
+    email: !secret amazon_email
+    password: !secret amazon_password
+    url: "amazon.com"
+
+alert:
+  bathroom_door:
+    name: Åhnej! Katten kan inte komma in i badrummet!
+    done_message: Puh! Nu är badrumsdörren öppen igen och katten kan åter bajsa! 
+    entity_id: binary_sensor.badrumsdorr
+    state: 'off'
+    repeat:
+      - 5
+      - 10
+    can_acknowledge: True
+    skip_first: True
+    notifiers:
+      - pushbullet
+
+
+
