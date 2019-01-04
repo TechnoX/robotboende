@@ -44,9 +44,9 @@ bedroom:
   icon: mdi:hotel
   entities:
     - light.bedroom_ceiling
-    - switch.banklampa_sovrum
-    - switch.fonsterlampa_sovrum
-    - switch.golvlampa_sovrum
+    - light.bedroom_floor
+    - light.bedroom_table
+    - light.bedroom_window 
     - binary_sensor.flic_80e4da733b73
     - sensor.fjarris
     - media_player.master_bedroom_speaker
@@ -63,7 +63,7 @@ livingroom:
   name: Living room
   icon: mdi:food-fork-drink
   entities:
-    - switch.vardagsrumsfonster
+    - light.living_room_window_lamps 
     - sensor.vardagsrumsfonster_power
     - sensor.vardagsrumsfonster_power_2
     - light.living_room_sofa_table

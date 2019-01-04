@@ -126,6 +126,19 @@ sensor:
 
 
 
+light:
+  - platform: switch
+    entity_id: switch.banklampa_sovrum
+    name: Bedroom table
+  - platform: switch
+    entity_id: switch.fonsterlampa_sovrum
+    name: Bedroom window
+  - platform: switch
+    entity_id: switch.golvlampa_sovrum
+    name: Bedroom floor
+  - platform: switch
+    entity_id: switch.vardagsrumsfonster
+    name: Living room window lamps
 # Text to speech
 #tts:
 #  - platform: google
