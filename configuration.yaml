@@ -420,9 +420,7 @@ alert:
     done_message: Puh! Nu är badrumsdörren öppen igen och katten kan åter bajsa! 
     entity_id: binary_sensor.badrumsdorr
     state: 'off'
-    repeat:
-      - 5
-      - 10
+    repeat: 10
     can_acknowledge: True
     skip_first: True
     notifiers:
