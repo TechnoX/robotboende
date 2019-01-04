@@ -54,12 +54,12 @@ history:
 # View all events in a logbook
 logbook:
 
-panel_custom:
-  - name: floorplan
-    sidebar_title: Floorplan
-    sidebar_icon: mdi:home
-    url_path: floorplan
-    config: !include floorplan.yaml
+#panel_custom:
+#  - name: floorplan
+#    sidebar_title: Floorplan
+#    sidebar_icon: mdi:home
+#    url_path: floorplan
+#    config: !include floorplan.yaml
 
 # Enables a map showing the location of tracked devices
 #map:
@@ -104,9 +104,9 @@ tellduslive:
 
 binary_sensor:
   - platform: flic
-  - platform: mqtt
-    state_topic: dummy/floorplan/sensor
-    name: Floorplan
+#  - platform: mqtt
+#    state_topic: dummy/floorplan/sensor
+#    name: Floorplan
 
 
 
