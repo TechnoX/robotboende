@@ -131,6 +131,101 @@ sensor:
 
 # Cloud
 cloud:
+  google_actions:
+    filter:
+      exclude_domains:
+        - automation
+        - script
+        - group
+      exclude_entities:
+        - switch.banklampa_sovrum
+        - switch.fonsterlampa_sovrum
+        - switch.golvlampa_sovrum
+        - switch.vardagsrumsfonster
+        - media_player.echo_dot_kitchen
+        - media_player.this_device
+        - media_player.this_device_2
+        - media_player.master_bedroom_speaker
+        - media_player.chromecast7473
+        - media_player.sofias_chromecast
+    entity_config:
+      light.entrance_ceiling:
+        room: Entryway
+      light.entrance_table:
+        room: Entryway
+      light.lantern:
+        room: Entryway
+      light.bedroom_table:
+        room: Bedroom
+      light.bedroom_window:
+        room: Bedroom
+      light.bedroom_floor:
+        room: Bedroom
+      light.bedroom_ceiling:
+        room: Bedroom
+      light.living_room_window_lamps:
+        room: Living Room
+      light.yeelight:
+        room: Living Room
+      light.living_room_window_right:
+        room: Living Room
+      light.living_room_window_left:
+        room: Living Room
+      light.living_room_sofa_table:
+        room: Living Room
+      light.living_room_ceiling:
+        room: Living Room
+      light.living_room_ceiling_ikea1:
+        room: Living Room
+      light.living_room_ceiling_ikea2:
+        room: Living Room
+      light.bathroom_mirror:
+        room: Bathroom
+      light.bathroom_ceiling:
+        room: Bathroom
+      light.sink:
+        room: Kitchen
+      media_player.echo_dot_kitchen:
+        room: Kitchen
+        name: Alexa
+        aliases:
+          - Echo Dot
+      light.kitchen_table_ceiling:
+        room: Kitchen
+      switch.balkong:
+        room: Outside
+  alexa:
+    filter:
+      exclude_domains:
+        - automation
+        - script
+        - group
+        - sensor
+        - alert
+      exclude_entities:
+        - switch.banklampa_sovrum
+        - switch.fonsterlampa_sovrum
+        - switch.golvlampa_sovrum
+        - switch.vardagsrumsfonster
+        - media_player.echo_dot_kitchen
+        - media_player.this_device
+        - media_player.this_device_2
+      include_entities:
+        - sensor.kyl_temperature
+    entity_config:
+      media_player.master_bedroom_speaker:
+        name: Google Home
+        description: Bedroom
+        display_categories: SPEAKER
+      media_player.sofias_chromecast:
+        name: Chromecast
+        description: Bedroom
+        display_categories: TV
+      sensor.kyl_temperature:
+        name: Temperature Refrigerator
+        description: Kitchen
+        display_categories: TEMPERATURE_SENSOR
+
 
 group: !include groups.yaml
 automation: !include_dir_list automation
