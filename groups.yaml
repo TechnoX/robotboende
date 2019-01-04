@@ -71,6 +71,7 @@ livingroom:
     - light.living_room_ceiling
     - light.living_room_ceiling_ikea1
     - light.living_room_ceiling_ikea2
+    - light.yeelight 
 
 
 entrance:

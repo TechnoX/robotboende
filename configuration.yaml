@@ -127,6 +127,11 @@ sensor:
 
 
 light:
+  - platform: yeelight
+    devices:
+      192.168.0.19:
+        name: Yeelight
+        model: bslamp1
   - platform: switch
     entity_id: switch.banklampa_sovrum
     name: Bedroom table
