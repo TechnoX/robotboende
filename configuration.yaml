@@ -64,6 +64,11 @@ logbook:
 # Enables a map showing the location of tracked devices
 #map:
 
+
+twilio:
+  account_sid: !secret account_twilio
+  auth_token: !secret token_twilio
+
 # Track the sun
 sun:
 
@@ -295,6 +300,18 @@ notify:
   - name: pushbullet
     platform: pushbullet
     api_key: !secret pb_access_token
+  - name: twilio
+    platform: twilio_sms
+    from_number: '+46769437342'
+  - name: notify_everyone
+    platform: group
+    services:
+      - service: twilio
+        data:
+          target:
+            - '+46723239206'
+            - '+46703571658'
+      - service: pushbullet
 
 media_player:
   - platform: alexa
