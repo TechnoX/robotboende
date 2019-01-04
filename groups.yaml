@@ -144,6 +144,7 @@ everything:
     - group.all_locks
     - group.all_remotes
     - group.all_scripts
+    - group.all_plants
 
 map:
   name: Map

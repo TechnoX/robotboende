@@ -85,6 +85,40 @@ sensor:
   - platform: hue
     ip_address: 192.168.0.14
     token: !secret hue_token
+  - platform: miflora
+    mac: 'C4:7C:8D:66:EA:94'
+    name: "blomma1"
+    median: 1
+  - platform: miflora
+    mac: 'C4:7C:8D:66:EA:97'
+    name: "blomma2"
+    median: 1
+  - platform: miflora
+    mac: 'C4:7C:8D:66:EA:B4'
+    name: "blomma3"
+    median: 1
+  - platform: miflora
+    mac: 'C4:7C:8D:66:EA:B6'
+    name: "blomma4"
+    median: 1
+  - platform: miflora
+    mac: 'C4:7C:8D:66:EA:CD'
+    name: "blomma5"
+    median: 1
+  - platform: miflora
+    mac: 'C4:7C:8D:66:EA:D1'
+    name: "blomma6"
+    median: 1
+  - platform: miflora
+    mac: 'C4:7C:8D:66:EB:07'
+    name: "blomma7"
+    median: 1
+  - platform: miflora
+    mac: 'C4:7C:8D:66:EB:1B'
+    name: "blomma8"
+    median: 1
+
+
 
 # Text to speech
 #tts:
@@ -96,6 +130,140 @@ cloud:
 group: !include groups.yaml
 automation: !include_dir_list automation
 script: !include scripts.yaml
+
+
+
+
+plant:
+  blomma1:
+    sensors:
+      moisture: sensor.blomma1_moisture
+      battery: sensor.blomma1_battery
+      temperature: sensor.blomma1_temperature
+      conductivity: sensor.blomma1_conductivity
+      brightness: sensor.blomma1_light_intensity
+    min_moisture: 7
+    max_moisture: 50
+    min_battery: 20
+    min_conductivity: 50
+    max_conductivity: 1000
+    min_temperature: 8
+    max_temperature: 32
+    #min_brightness: 2800
+    #max_brightness: 20000
+  blomma2:
+    sensors:
+      moisture: sensor.blomma2_moisture
+      battery: sensor.blomma2_battery
+      temperature: sensor.blomma2_temperature
+      conductivity: sensor.blomma2_conductivity
+      brightness: sensor.blomma2_light_intensity
+    min_moisture: 20
+    max_moisture: 60
+    min_battery: 20
+    min_conductivity: 50
+    max_conductivity: 2000
+    min_temperature: 6
+    max_temperature: 35
+    #min_brightness: 1000
+    #max_brightness: 30000
+  blomma3:
+    sensors:
+      moisture: sensor.blomma3_moisture
+      battery: sensor.blomma3_battery
+      temperature: sensor.blomma3_temperature
+      conductivity: sensor.blomma3_conductivity
+      brightness: sensor.blomma3_light_intensity
+    min_moisture: 15
+    max_moisture: 60
+    min_battery: 20
+    min_conductivity: 50
+    max_conductivity: 2000
+    min_temperature: 10
+    max_temperature: 32
+    #min_brightness: 600
+    #max_brightness: 20000
+  blomma4:
+    sensors:
+      moisture: sensor.blomma4_moisture
+      battery: sensor.blomma4_battery
+      temperature: sensor.blomma4_temperature
+      conductivity: sensor.blomma4_conductivity
+      brightness: sensor.blomma4_light_intensity
+    min_moisture: 15
+    max_moisture: 60
+    min_battery: 20
+    min_conductivity: 50
+    max_conductivity: 2000
+    min_temperature: 12
+    max_temperature: 32
+    #min_brightness: 800
+    #max_brightness: 15000
+  blomma5:
+    sensors:
+      moisture: sensor.blomma5_moisture
+      battery: sensor.blomma5_battery
+      temperature: sensor.blomma5_temperature
+      conductivity: sensor.blomma5_conductivity
+      brightness: sensor.blomma5_light_intensity
+    min_moisture: 7
+    max_moisture: 40
+    min_battery: 20
+    min_conductivity: 50
+    max_conductivity: 2000
+    min_temperature: 6
+    max_temperature: 35
+    #min_brightness: 1000
+    #max_brightness: 30000
+  blomma6:
+    sensors:
+      moisture: sensor.blomma6_moisture
+      battery: sensor.blomma6_battery
+      temperature: sensor.blomma6_temperature
+      conductivity: sensor.blomma6_conductivity
+      brightness: sensor.blomma6_light_intensity
+    min_moisture: 7
+    max_moisture: 50
+    min_battery: 20
+    min_conductivity: 50
+    max_conductivity: 1000
+    min_temperature: 10
+    max_temperature: 32
+    #min_brightness: 1500
+    #max_brightness: 60000
+  blomma7:
+    sensors:
+      moisture: sensor.blomma7_moisture
+      battery: sensor.blomma7_battery
+      temperature: sensor.blomma7_temperature
+      conductivity: sensor.blomma7_conductivity
+      brightness: sensor.blomma7_light_intensity
+    min_moisture: 15
+    max_moisture: 60
+    min_battery: 20
+    min_conductivity: 50
+    max_conductivity: 2000
+    min_temperature: 10
+    max_temperature: 35
+    #min_brightness: 700
+    #max_brightness: 50000
+  blomma8:
+    sensors:
+      moisture: sensor.blomma8_moisture
+      battery: sensor.blomma8_battery
+      temperature: sensor.blomma8_temperature
+      conductivity: sensor.blomma8_conductivity
+      brightness: sensor.blomma8_light_intensity
+    min_moisture: 15
+    max_moisture: 60
+    min_battery: 20
+    min_conductivity: 50
+    max_conductivity: 2000
+    min_temperature: 5
+    max_temperature: 35
+    #min_brightness: 4000
+    #max_brightness: 60000
+
 
 
 # Telldus Live!
@@ -146,7 +314,92 @@ alert:
     can_acknowledge: True
     skip_first: True
     notifiers:
-      - pushbullet
-
-
-
+      - notify_everyone
+  plant1:
+    name: Fd boll behöver omvårdnad
+    done_message: Tack, nu mår fd boll bra igen!
+    entity_id: plant.blomma1
+    state: 'problem'
+    repeat: 2880
+    can_acknowledge: True
+    skip_first: False
+    message: "Fd boll behöver omvårdnad med ({{ state_attr('plant.blomma1', 'problem') }})" 
+    notifiers:
+      - notify_everyone
+  plant2:
+    name: Candula behöver omvårdnad
+    done_message: Tack, nu mår Candula bra igen!
+    entity_id: plant.blomma2
+    state: 'problem'
+    repeat: 2880
+    can_acknowledge: True
+    skip_first: False
+    message: "Candula behöver omvårdnad med ({{ state_attr('plant.blomma2', 'problem') }})" 
+    notifiers:
+      - notify_everyone
+  plant3:
+    name: Garderobsblomma behöver omvårdnad
+    done_message: Tack, nu mår Garderobsblomma bra igen!
+    entity_id: plant.blomma3
+    state: 'problem'
+    repeat: 2880
+    can_acknowledge: True
+    skip_first: False
+    message: "Garderobsblomma behöver omvårdnad med ({{ state_attr('plant.blomma3', 'problem') }})" 
+    notifiers:
+      - notify_everyone
+  plant4:
+    name: Adams revben behöver omvårdnad
+    done_message: Tack, nu mår Adams revben bra igen!
+    entity_id: plant.blomma4
+    state: 'problem'
+    repeat: 2880
+    can_acknowledge: True
+    skip_first: False
+    message: "Adams revben behöver omvårdnad med ({{ state_attr('plant.blomma4', 'problem') }})" 
+    notifiers:
+      - notify_everyone
+  plant5:
+    name: Påsk kaktusen behöver omvårdnad
+    done_message: Tack, nu mår Påsk kaktusen bra igen!
+    entity_id: plant.blomma5
+    state: 'problem'
+    repeat: 2880
+    can_acknowledge: True
+    skip_first: False
+    message: "Påsk kaktusen behöver omvårdnad med ({{ state_attr('plant.blomma5', 'problem') }})" 
+    notifiers:
+      - notify_everyone
+  plant6:
+    name: Spindellilja behöver omvårdnad
+    done_message: Tack, nu mår Spindellilja bra igen!
+    entity_id: plant.blomma6
+    state: 'problem'
+    repeat: 2880
+    can_acknowledge: True
+    skip_first: False
+    message: "Spindellilja behöver omvårdnad med({{ state_attr('plant.blomma6', 'problem') }})" 
+    notifiers:
+      - notify_everyone
+  plant7:
+    name: Palmen behöver omvårdnad
+    done_message: Tack, nu mår Palmen bra igen!
+    entity_id: plant.blomma7
+    state: 'problem'
+    repeat: 2880
+    can_acknowledge: True
+    skip_first: False
+    message: "Palmen behöver omvårdnad med ({{ state_attr('plant.blomma7', 'problem') }})" 
+    notifiers:
+      - notify_everyone
+  plant8:
+    name: Ostabil blomma behöver omvårdnad
+    done_message: Tack, nu mår Ostabil blomma bra igen!
+    entity_id: plant.blomma8
+    state: 'problem'
+    repeat: 2880
+    can_acknowledge: True
+    skip_first: False
+    message: "Ostabil blomma behöver omvårdnad med ({{ state_attr('plant.blomma8', 'problem') }})" 
+    notifiers:
+      - notify_everyone
