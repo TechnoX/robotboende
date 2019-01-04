@@ -67,6 +67,15 @@ sensor.badrum_motion_sensor:
   device_class: motion
 
 # Sovrummet
+switch.banklampa_sovrum:
+  friendly_name: Bedroom table
+  icon: mdi:lamp
+switch.fonsterlampa_sovrum:
+  friendly_name: Bedroom window
+  icon: mdi:lamp
+switch.golvlampa_sovrum:
+  friendly_name: Bedroom floor
+  icon: mdi:lightbulb
 light.bedroom_ceiling:
   icon: mdi:ceiling-light
 binary_sensor.flic_80e4da733b73:
@@ -82,6 +91,9 @@ light.living_room_window_left:
 light.living_room_window_right:
   hidden: True
   icon: mdi:spotlight-beam
+switch.vardagsrumsfonster:
+  friendly_name: Living room window lamps
+  icon: mdi:lamp
 sensor.vardagsrumsfonster_power:
   friendly_name: Living room power sensor
   icon: mdi:battery-charging
