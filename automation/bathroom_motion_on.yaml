@@ -1,9 +1,12 @@
 alias: Turn on bathroom light when there is movement
 trigger:
   platform: state
-  entity_id: sensor.badrum_motion_sensor
+  entity_id: binary_sensor.badrum_sensor_motion
   to: 'on'
-#  condition:
+condition:
+  condition: numeric_state
+  entity_id: 'sensor.badrum_sensor_light_level'
+  below: 200
 #    condition: and
 #    conditions:
 #      - condition: state

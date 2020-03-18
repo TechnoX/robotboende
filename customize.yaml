@@ -59,7 +59,7 @@ light.sink:
 light.bathroom_ceiling:
   icon: mdi:ceiling-light
 binary_sensor.badrumsdorr:
-  friendly_name: Bathroom door sensor
+  friendly_name: Conservatory door sensor
   device_class: door
   icon: mdi:door
 sensor.badrum_motion_sensor:
@@ -80,8 +80,8 @@ light.bedroom_ceiling:
   icon: mdi:ceiling-light
 binary_sensor.flic_80e4da733b73:
   friendly_name: Flic
-sensor.fjarris:
-  friendly_name: Fjärris
+#sensor.fjarris:
+#  friendly_name: Fjärris
 
 
 # Vardagsrummet

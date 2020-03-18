@@ -64,6 +64,25 @@ logbook:
 # Enables a map showing the location of tracked devices
 #map:
 
+switch:
+  - platform: wake_on_lan
+    mac_address: "D4-3D-7E-4D-D6-2D"
+    name: "Computer"
+    host: "192.168.0.11"
+    turn_off:
+      service: shell_command.turn_off_fredora
+
+shell_command:
+  turn_off_fredora: 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i /config/.ssh/id_rsa hass@192.168.0.11 sudo poweroff'
+
+tuya:
+  username: !secret tuya_user
+  password: !secret tuya_password
+  country_code: 46
+  platform: smart_life
+
+
+
 
 twilio:
   account_sid: !secret account_twilio
@@ -88,7 +107,7 @@ sensor:
       - fog
       - cloudiness
   - platform: hue
-    ip_address: 192.168.0.14
+    ip_address: 192.168.0.2
     token: !secret hue_token
     scan_interval: 2
   - platform: miflora
@@ -123,14 +142,19 @@ sensor:
     mac: 'C4:7C:8D:66:EB:1B'
     name: "blomma8"
     median: 1
+    
+    
+yeelight:
+  devices:
+    192.168.0.13:
+      name: Yeelight
+      model: bslamp1
 
-
-light:
-  - platform: yeelight
-    devices:
-      192.168.0.19:
-        name: Yeelight
-        model: bslamp1
+#light:
+#  - platform: yeelight
+#    devices:
+#      192.168.0.13:
+#        name: Yeelight
 
 # Text to speech
 #tts:
@@ -145,10 +169,6 @@ cloud:
         - script
         - group
       exclude_entities:
-        - switch.banklampa_sovrum
-        - switch.fonsterlampa_sovrum
-        - switch.golvlampa_sovrum
-        - switch.vardagsrumsfonster
         - media_player.echo_dot_kitchen
         - media_player.this_device
         - media_player.this_device_2
@@ -210,30 +230,19 @@ cloud:
         - sensor
         - alert
       exclude_entities:
-        - switch.banklampa_sovrum
-        - switch.fonsterlampa_sovrum
-        - switch.golvlampa_sovrum
-        - switch.vardagsrumsfonster
         - media_player.echo_dot_kitchen
         - media_player.this_device
         - media_player.this_device_2
       include_entities:
         - sensor.kyl_temperature
+        - vacuum.borris
+        - group.vacuum_short_status
     entity_config:
-      media_player.master_bedroom_speaker:
-        name: Google Home
-        description: Bedroom
-        display_categories: SPEAKER
-      media_player.sofias_chromecast:
-        name: Chromecast
-        description: Bedroom
-        display_categories: TV
       sensor.kyl_temperature:
         name: Temperature Refrigerator
         description: Kitchen
         display_categories: TEMPERATURE_SENSOR
-
-
+        
 group: !include groups.yaml
 automation: !include_dir_list automation
 script: !include scripts.yaml
@@ -384,19 +393,20 @@ binary_sensor:
 #    name: Floorplan
 
 
-
 device_tracker:
   - platform: nmap_tracker
     hosts: 192.168.0.1-255
-    exclude: 192.168.0.41
+    exclude: 192.168.0.3
     home_interval: 10
     consider_home: 1800
 
 vacuum:
   - platform: xiaomi_miio
-    host: 192.168.0.26
+    host: 192.168.0.12
     token: !secret vacuum_token
-    name: Borris
+    name: borris
+
+
 
 notify:
   - name: pushbullet
@@ -411,112 +421,114 @@ notify:
       - service: twilio
         data:
           target:
-            - '+46723239206'
             - '+46703571658'
       - service: pushbullet
 
-media_player:
-  - platform: alexa
-    email: !secret amazon_email
-    password: !secret amazon_password
-    url: "amazon.com"
+system_health:
 
+
+alexa_media:
+  accounts:
+    - email: !secret amazon_email
+      password: !secret amazon_password
+      url: "amazon.com"
+      
 alert:
   bathroom_door:
-    name: Åhnej! Katten kan inte komma in i badrummet!
-    done_message: Puh! Nu är badrumsdörren öppen igen och katten kan åter bajsa! 
+    name: Nu är dörren till verandan öppen, bör den vara det?
+    done_message: Nu har någon stängt verandadörren igen!  
     entity_id: binary_sensor.badrumsdorr
-    state: 'off'
-    repeat: 10
-    can_acknowledge: True
-    skip_first: True
-    notifiers:
-      - notify_everyone
-  plant1:
-    name: Fd boll behöver omvårdnad
-    done_message: Tack, nu mår fd boll bra igen!
-    entity_id: plant.blomma1
-    state: 'problem'
-    repeat: 2880
+    state: 'on'
+    repeat: 480
     can_acknowledge: True
     skip_first: False
-    message: "Fd boll behöver omvårdnad med ({{ state_attr('plant.blomma1', 'problem') }})" 
     notifiers:
       - notify_everyone
-  plant2:
-    name: Candula behöver omvårdnad
-    done_message: Tack, nu mår Candula bra igen!
-    entity_id: plant.blomma2
-    state: 'problem'
-    repeat: 2880
-    can_acknowledge: True
-    skip_first: False
-    message: "Candula behöver omvårdnad med ({{ state_attr('plant.blomma2', 'problem') }})" 
-    notifiers:
-      - notify_everyone
-  plant3:
-    name: Garderobsblomma behöver omvårdnad
-    done_message: Tack, nu mår Garderobsblomma bra igen!
-    entity_id: plant.blomma3
-    state: 'problem'
-    repeat: 2880
-    can_acknowledge: True
-    skip_first: False
-    message: "Garderobsblomma behöver omvårdnad med ({{ state_attr('plant.blomma3', 'problem') }})" 
-    notifiers:
-      - notify_everyone
-  plant4:
-    name: Adams revben behöver omvårdnad
-    done_message: Tack, nu mår Adams revben bra igen!
-    entity_id: plant.blomma4
-    state: 'problem'
-    repeat: 2880
-    can_acknowledge: True
-    skip_first: False
-    message: "Adams revben behöver omvårdnad med ({{ state_attr('plant.blomma4', 'problem') }})" 
-    notifiers:
-      - notify_everyone
-  plant5:
-    name: Påsk kaktusen behöver omvårdnad
-    done_message: Tack, nu mår Påsk kaktusen bra igen!
-    entity_id: plant.blomma5
-    state: 'problem'
-    repeat: 2880
-    can_acknowledge: True
-    skip_first: False
-    message: "Påsk kaktusen behöver omvårdnad med ({{ state_attr('plant.blomma5', 'problem') }})" 
-    notifiers:
-      - notify_everyone
-  plant6:
-    name: Spindellilja behöver omvårdnad
-    done_message: Tack, nu mår Spindellilja bra igen!
-    entity_id: plant.blomma6
-    state: 'problem'
-    repeat: 2880
-    can_acknowledge: True
-    skip_first: False
-    message: "Spindellilja behöver omvårdnad med({{ state_attr('plant.blomma6', 'problem') }})" 
-    notifiers:
-      - notify_everyone
-  plant7:
-    name: Palmen behöver omvårdnad
-    done_message: Tack, nu mår Palmen bra igen!
-    entity_id: plant.blomma7
-    state: 'problem'
-    repeat: 2880
-    can_acknowledge: True
-    skip_first: False
-    message: "Palmen behöver omvårdnad med ({{ state_attr('plant.blomma7', 'problem') }})" 
-    notifiers:
-      - notify_everyone
-  plant8:
-    name: Ostabil blomma behöver omvårdnad
-    done_message: Tack, nu mår Ostabil blomma bra igen!
-    entity_id: plant.blomma8
-    state: 'problem'
-    repeat: 2880
-    can_acknowledge: True
-    skip_first: False
-    message: "Ostabil blomma behöver omvårdnad med ({{ state_attr('plant.blomma8', 'problem') }})" 
-    notifiers:
-      - notify_everyone
+#  plant1:
+#    name: Fd boll behöver omvårdnad
+#    done_message: Tack, nu mår fd boll bra igen!
+#    entity_id: plant.blomma1
+#    state: 'problem'
+#    repeat: 2880
+#    can_acknowledge: True
+#    skip_first: False
+#    message: "Fd boll behöver omvårdnad med ({{ state_attr('plant.blomma1', 'problem') }})" 
+#    notifiers:
+#      - notify_everyone
+#  plant2:
+#    name: Candula behöver omvårdnad
+#    done_message: Tack, nu mår Candula bra igen!
+#    entity_id: plant.blomma2
+#    state: 'problem'
+#    repeat: 2880
+#    can_acknowledge: True
+#    skip_first: False
+#    message: "Candula behöver omvårdnad med ({{ state_attr('plant.blomma2', 'problem') }})" 
+#    notifiers:
+#      - notify_everyone
+#  plant3:
+#    name: Garderobsblomma behöver omvårdnad
+#    done_message: Tack, nu mår Garderobsblomma bra igen!
+#    entity_id: plant.blomma3
+#    state: 'problem'
+#    repeat: 2880
+#    can_acknowledge: True
+#    skip_first: False
+#    message: "Garderobsblomma behöver omvårdnad med ({{ state_attr('plant.blomma3', 'problem') }})" 
+#    notifiers:
+#      - notify_everyone
+#  plant4:
+#    name: Adams revben behöver omvårdnad
+#    done_message: Tack, nu mår Adams revben bra igen!
+#    entity_id: plant.blomma4
+#    state: 'problem'
+#    repeat: 2880
+#    can_acknowledge: True
+#    skip_first: False
+#    message: "Adams revben behöver omvårdnad med ({{ state_attr('plant.blomma4', 'problem') }})" 
+#    notifiers:
+#      - notify_everyone
+#  plant5:
+#    name: Påsk kaktusen behöver omvårdnad
+#    done_message: Tack, nu mår Påsk kaktusen bra igen!
+#    entity_id: plant.blomma5
+#    state: 'problem'
+#    repeat: 2880
+#    can_acknowledge: True
+#    skip_first: False
+#    message: "Påsk kaktusen behöver omvårdnad med ({{ state_attr('plant.blomma5', 'problem') }})" 
+#    notifiers:
+#      - notify_everyone
+#  plant6:
+#    name: Spindellilja behöver omvårdnad
+#    done_message: Tack, nu mår Spindellilja bra igen!
+#    entity_id: plant.blomma6
+#    state: 'problem'
+#    repeat: 2880
+#    can_acknowledge: True
+#    skip_first: False
+#    message: "Spindellilja behöver omvårdnad med({{ state_attr('plant.blomma6', 'problem') }})" 
+#    notifiers:
+#      - notify_everyone
+#  plant7:
+#    name: Palmen behöver omvårdnad
+#    done_message: Tack, nu mår Palmen bra igen!
+#    entity_id: plant.blomma7
+#    state: 'problem'
+#    repeat: 2880
+#    can_acknowledge: True
+#    skip_first: False
+#    message: "Palmen behöver omvårdnad med ({{ state_attr('plant.blomma7', 'problem') }})" 
+#    notifiers:
+#      - notify_everyone
+#  plant8:
+#    name: Ostabil blomma behöver omvårdnad
+#    done_message: Tack, nu mår Ostabil blomma bra igen!
+#    entity_id: plant.blomma8
+#    state: 'problem'
+#    repeat: 2880
+#    can_acknowledge: True
+#    skip_first: False
+#    message: "Ostabil blomma behöver omvårdnad med ({{ state_attr('plant.blomma8', 'problem') }})" 
+#    notifiers:
+#      - notify_everyone

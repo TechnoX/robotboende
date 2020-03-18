@@ -194,24 +194,24 @@ automation:
            message: 'Borris is done cleaning! {{ states.vacuum.borris.attributes.cleaned_area }} m2 was cleaned in {{  states.vacuum.borris.attributes.cleaning_time }} minutes.'
 
 
-  - alias: 'Vacuum scheduling weekdays when everyone away'
-    initial_state: false
-    trigger: 
-      platform: time
-      at: "13:26:00"
-    condition:
-      condition: and 
-      conditions:
-        - condition: time 
-          weekday:
-          - mon
-          - tue
-          - wed
-          - thu
-          - fri 
-        - condition: state
-          entity_id: group.persons 
-          state: 'not_home'
-    action: 
-      - service: vacuum.turn_on
-        entity_id: vacuum.borris
+#  - alias: 'Vacuum scheduling weekdays when everyone away'
+#    initial_state: false
+#    trigger: 
+#      platform: time
+#      at: "13:26:00"
+#    condition:
+#      condition: and 
+#      conditions:
+#        - condition: time 
+#          weekday:
+#          - mon
+#          - tue
+#          - wed
+#          - thu
+#          - fri 
+#        - condition: state
+#          entity_id: group.persons 
+#          state: 'not_home'
+#    action: 
+#      - service: vacuum.turn_on
+#        entity_id: vacuum.borris

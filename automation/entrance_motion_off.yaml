@@ -1,7 +1,7 @@
 alias: Turn off entrance light 2 minutes after last movement
 trigger:
   platform: state
-  entity_id: sensor.motion_hallsensor
+  entity_id: binary_sensor.hallsensor_motion
   to: 'off'
   for:
     minutes: 2

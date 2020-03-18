@@ -1,10 +1,10 @@
 alias: Turn off bathroom light 2 minutes after last movement
 trigger:
   platform: state
-  entity_id: sensor.badrum_motion_sensor
+  entity_id: binary_sensor.badrum_sensor_motion
   to: 'off'
   for:
-    minutes: 2
+    minutes: 10
 action:
   service: light.turn_off
   entity_id: group.bathroom

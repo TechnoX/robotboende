@@ -1,7 +1,7 @@
 alias: 'Turn on Entrance light when movement in night'
 trigger: 
   platform: state
-  entity_id: sensor.motion_hallsensor
+  entity_id: binary_sensor.hallsensor_motion
   from: 'off'
   to: 'on'
 condition:

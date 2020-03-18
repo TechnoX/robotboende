@@ -5,13 +5,12 @@ default_view:
     - zone.home
     - sensor.weather_symbol
     - sensor.weather_temperature
-    - device_tracker.oneplus_3t
-    - device_tracker.androidff8d08b56883d236
-    - device_tracker.androidc6b535b32e0e58f6
+    - device_tracker.oneplus7pro
     - group.livingroom
     - group.bedroom
     - group.kitchen
     - group.bathroom
+    - group.conservatory
     - group.entrance
     - group.vacuum_short_status
     - group.fredrik_room
@@ -19,58 +18,39 @@ default_view:
 kitchen:
   name: Kitchen
   entities:
-    - switch.balkong
-    - sensor.kyl_temperature
+    - sensor.kyl_temperature_2
     - light.sink
-    - light.kitchen_table_ceiling
-    - configurator.alexa_media_player
-    - media_player.echo_dot_kitchen
-
-fredrik_room:
-  name: Fredriks room
-  entities:
-    - light.fredrik_bedroom_ceiling
+    - light.kitchen_ceiling
+    - media_player.echo_dot_kitchen_2
 
 bathroom:
   name: Bathroom
   entities:
     - light.bathroom_mirror
     - light.bathroom_ceiling
+    - binary_sensor.badrum_sensor_motion
+    - sensor.badrum_sensor_temperature
+    - sensor.badrum_sensor_light_level
+
+conservatory: 
+  name: Conservatory
+  entities: 
     - binary_sensor.badrumsdorr
-    - sensor.badrum_motion_sensor
+    - light.conservatory
 
 bedroom:
   name: Bedroom
   icon: mdi:hotel
   entities:
     - light.bedroom_ceiling
-    - switch.banklampa_sovrum
-    - switch.fonsterlampa_sovrum
-    - switch.golvlampa_sovrum
+    - switch.computer
     - binary_sensor.flic_80e4da733b73
-    - sensor.fjarris
-    - media_player.master_bedroom_speaker
-
-
-window_spots:
-  name: Window spotlights
-  entities:
-    - light.living_room_window_right
-    - light.living_room_window_left
-
 
 livingroom:
   name: Living room
   icon: mdi:food-fork-drink
   entities:
-    - switch.vardagsrumsfonster
-    - sensor.vardagsrumsfonster_power
-    - sensor.vardagsrumsfonster_power_2
-    - light.living_room_sofa_table
-    - group.window_spots
-    - light.living_room_ceiling
-    - light.living_room_ceiling_ikea1
-    - light.living_room_ceiling_ikea2
+    - light.retro_lamp
     - light.yeelight 
 
 
@@ -78,10 +58,11 @@ entrance:
   name: Entrance
   icon: mdi:home-outline
   entities:
-    - light.entrance_ceiling
-    - light.lantern
+    - light.entrance_outdoor
     - light.entrance_table
-    - sensor.motion_hallsensor
+    - binary_sensor.hallsensor_motion
+    - sensor.hallsensor_temperature
+    - sensor.hallsensor_light_level
 
 vacuum_status_view:
   view: yes
@@ -126,12 +107,6 @@ vacuum_short_status:
     - vacuum.borris
     - sensor.vacuum_status
     - sensor.vacuum_battery_level
-
-persons:
-  name: "Persons device tracker group"
-  view: no
-  entities:
-    - device_tracker.androidc6b535b32e0e58f6
 
 everything:
   name: "Everything"
